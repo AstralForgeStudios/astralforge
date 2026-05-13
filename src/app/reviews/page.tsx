@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Reviews",
+  title: "Reviews | Astral Forge",
   description:
-    "Player testimonials and feedback for AstralForge campaigns and sessions."
+    "Verified player testimonials and feedback for Astral Forge campaigns, sessions, and tabletop experiences."
 };
 
 const publishedReviews: Array<{
@@ -13,121 +14,114 @@ const publishedReviews: Array<{
   review: string;
 }> = [];
 
+function Stars({ rating }: { rating: number }) {
+  return (
+    <div className="flex items-center gap-1" aria-label={`${rating} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <span
+          key={index}
+          className={index < rating ? "text-amber-300" : "text-white/20"}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function ReviewsPage() {
   const playUrl =
     process.env.NEXT_PUBLIC_PLAY_URL || "https://play.astralforge.studio";
 
   return (
     <main className="min-h-screen bg-background text-white">
-      {/* Hero */}
       <section
-        className="relative flex min-h-[340px] items-center border-b border-white/10 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/hero/hero-reviews.webp')"
-        }}
+        className="relative flex min-h-[420px] items-center overflow-hidden border-b border-white/10 bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/hero/hero-reviews.webp')" }}
       >
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-background" />
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-background" />
 
-        <div className="relative mx-auto flex w-full max-w-7xl justify-end px-6 py-16 sm:px-8 lg:px-12">
-          <div className="max-w-xl text-right">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/65">
-              Reviews
+        <div className="relative mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 lg:px-12">
+          <div className="ml-auto max-w-2xl text-right">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-200/80">
+              Player Testimonials
             </p>
 
-            <h1 className="mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Player Reviews
+            <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              Reviews from the Table
             </h1>
 
-            <h2 className="text-2xl font-semibold text-white/90 sm:text-3xl">
-              Voices from the Table
-            </h2>
-
-            <p className="mt-4 text-sm leading-6 text-white/75">
-              Honest feedback from players who have stepped into the worlds of
-              Astral Forge. Every testimonial shared here is published with
-              permission.
+            <p className="mt-5 text-base leading-8 text-white/80 sm:text-lg">
+              Honest feedback from players who have joined Astral Forge
+              campaigns, one-shots, and story-driven tabletop sessions.
             </p>
 
-            <div className="mt-6 flex justify-end gap-3">
+            <div className="mt-8 flex flex-wrap justify-end gap-3">
               <a
                 href="#leave-a-review"
-                className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/15"
+                className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-white/85"
               >
                 Leave a Review
               </a>
 
-              <a
+              <Link
                 href={playUrl}
-                className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+                className="rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
               >
-                Enter the Table
-              </a>
+                Join a Game
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
       <section
-        className="relative border-b border-white/10 bg-background"
+        className="relative bg-background"
         style={{
           backgroundImage: "url('/images/backgrounds/bg-main.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center"
         }}
       >
-        <div className="mx-auto max-w-6xl px-6 py-14 sm:px-8 lg:px-12">
-          <div className="mb-8 max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
-              Reviews
-            </p>
+        <div className="absolute inset-0 bg-black/35" />
 
-            <p className="mt-4 text-base leading-8 text-white/85">
-              This page collects player testimonials and feedback for Astral
-              Forge campaigns and sessions. Reviews are published only when
-              permission is given.
-            </p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-            {/* Review Form */}
+        <div className="relative mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-12">
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
             <section
               id="leave-a-review"
-              className="rounded-3xl border border-white/15 bg-black/25 p-5 shadow-[0_0_40px_rgba(0,0,0,0.25)] backdrop-blur-[2px] sm:p-6"
+              className="rounded-[2rem] border border-white/15 bg-black/45 p-6 shadow-2xl backdrop-blur-md sm:p-8"
             >
-              <h2 className="text-3xl font-semibold tracking-tight text-white">
+              <p className="text-xs font-semibold uppercase tracking-[0.26em] text-amber-200/75">
+                Submit Feedback
+              </p>
+
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white">
                 Leave a Review
               </h2>
 
-              <p className="mt-4 text-base leading-7 text-white/85">
-                Share your experience, what stood out, and what future players
-                should know.
+              <p className="mt-3 text-sm leading-7 text-white/70">
+                Share what stood out, how the session felt, and what future
+                players should know. Reviews are moderated before publication.
               </p>
 
               <form className="mt-8 space-y-5">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <label
-                      htmlFor="name"
-                      className="text-sm font-medium text-white"
-                    >
-                      Name or player alias
+                    <label htmlFor="name" className="text-sm font-medium text-white/90">
+                      Name or alias
                     </label>
                     <input
                       id="name"
                       name="name"
                       type="text"
                       placeholder="Your name"
-                      className="w-full rounded-2xl border border-white/15 bg-black/25 px-4 py-3 text-base text-white placeholder:text-white/45 outline-none transition focus:border-white/30 focus:ring-2 focus:ring-white/10"
+                      className="w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-amber-200/50 focus:ring-2 focus:ring-amber-200/10"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label
-                      htmlFor="email"
-                      className="text-sm font-medium text-white"
-                    >
+                    <label htmlFor="email" className="text-sm font-medium text-white/90">
                       Email
                     </label>
                     <input
@@ -135,68 +129,59 @@ export default function ReviewsPage() {
                       name="email"
                       type="email"
                       placeholder="you@example.com"
-                      className="w-full rounded-2xl border border-white/15 bg-black/25 px-4 py-3 text-base text-white placeholder:text-white/45 outline-none transition focus:border-white/30 focus:ring-2 focus:ring-white/10"
+                      className="w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-amber-200/50 focus:ring-2 focus:ring-amber-200/10"
                     />
                   </div>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <label
-                      htmlFor="rating"
-                      className="text-sm font-medium text-white"
-                    >
+                    <label htmlFor="rating" className="text-sm font-medium text-white/90">
                       Rating
                     </label>
                     <select
                       id="rating"
                       name="rating"
                       defaultValue=""
-                      className="w-full rounded-2xl border border-white/15 bg-black/25 px-4 py-3 text-base text-white outline-none transition focus:border-white/30 focus:ring-2 focus:ring-white/10"
+                      className="w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-3 text-sm text-white outline-none transition focus:border-amber-200/50 focus:ring-2 focus:ring-amber-200/10"
                     >
                       <option value="" disabled className="text-black">
-                        Select a rating
+                        Select rating
                       </option>
                       <option value="5" className="text-black">
-                        5 - Excellent
+                        5 — Excellent
                       </option>
                       <option value="4" className="text-black">
-                        4 - Great
+                        4 — Great
                       </option>
                       <option value="3" className="text-black">
-                        3 - Good
+                        3 — Good
                       </option>
                       <option value="2" className="text-black">
-                        2 - Fair
+                        2 — Fair
                       </option>
                       <option value="1" className="text-black">
-                        1 - Poor
+                        1 — Poor
                       </option>
                     </select>
                   </div>
 
                   <div className="space-y-2">
-                    <label
-                      htmlFor="campaign"
-                      className="text-sm font-medium text-white"
-                    >
+                    <label htmlFor="campaign" className="text-sm font-medium text-white/90">
                       Campaign or session
                     </label>
                     <input
                       id="campaign"
                       name="campaign"
                       type="text"
-                      placeholder="Campaign title or one-shot name"
-                      className="w-full rounded-2xl border border-white/15 bg-black/25 px-4 py-3 text-base text-white placeholder:text-white/45 outline-none transition focus:border-white/30 focus:ring-2 focus:ring-white/10"
+                      placeholder="Campaign or one-shot name"
+                      className="w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-amber-200/50 focus:ring-2 focus:ring-amber-200/10"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label
-                    htmlFor="review"
-                    className="text-sm font-medium text-white"
-                  >
+                  <label htmlFor="review" className="text-sm font-medium text-white/90">
                     Review
                   </label>
                   <textarea
@@ -204,59 +189,69 @@ export default function ReviewsPage() {
                     name="review"
                     rows={6}
                     placeholder="Tell us about your experience at the table."
-                    className="w-full rounded-2xl border border-white/15 bg-black/25 px-4 py-3 text-base text-white placeholder:text-white/45 outline-none transition focus:border-white/30 focus:ring-2 focus:ring-white/10"
+                    className="w-full resize-none rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-amber-200/50 focus:ring-2 focus:ring-amber-200/10"
                   />
-                  <p className="text-xs text-white/55">
-                    Specific details make stronger and more useful testimonials.
+                  <p className="text-xs leading-5 text-white/45">
+                    Specific moments, tone, pacing, character interaction, and
+                    table atmosphere make the strongest testimonials.
                   </p>
                 </div>
 
-                <label className="flex items-start gap-3 text-sm text-white/90">
+                <label className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-white/80">
                   <input
                     type="checkbox"
                     name="permission"
                     className="mt-1 h-4 w-4 rounded border-white/20 bg-black/30"
                   />
                   <span>
-                    I give Astral Forge permission to publish this review
-                    publicly on the website.
+                    I give Astral Forge permission to publish this review on the
+                    website after moderation.
                   </span>
                 </label>
 
-                <p className="text-xs text-white/60">
-                  Reviews are reviewed before publication. Submissions may be
-                  edited for clarity or declined at discretion.
-                </p>
-
                 <button
                   type="submit"
-                  className="w-full rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
+                  className="w-full rounded-full bg-white px-5 py-3 text-sm font-bold text-black transition hover:bg-amber-100"
                 >
                   Submit Review
                 </button>
+
+                <p className="text-center text-xs leading-5 text-white/45">
+                  Submissions are reviewed before publication and may be edited
+                  for clarity.
+                </p>
               </form>
             </section>
 
-            {/* Published Testimonials */}
-            <section className="rounded-3xl border border-white/15 bg-black/25 p-5 shadow-[0_0_40px_rgba(0,0,0,0.25)] backdrop-blur-[2px] sm:p-6">
-              <h2 className="text-3xl font-semibold tracking-tight text-white">
+            <section className="rounded-[2rem] border border-white/15 bg-black/45 p-6 shadow-2xl backdrop-blur-md sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.26em] text-amber-200/75">
                 Published Testimonials
+              </p>
+
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white">
+                Player Feedback
               </h2>
 
-              <p className="mt-4 text-base leading-7 text-white/85">
-                Approved testimonials will appear here once they are submitted
-                and cleared for public display.
+              <p className="mt-3 text-sm leading-7 text-white/70">
+                Approved reviews will appear here once players submit feedback
+                and grant permission for public display.
               </p>
 
               <div className="mt-8">
                 {publishedReviews.length === 0 ? (
-                  <div className="rounded-3xl border border-dashed border-white/12 bg-black/20 p-5">
-                    <h3 className="text-xl font-semibold text-white">
-                      No published reviews yet
+                  <div className="rounded-[1.5rem] border border-dashed border-white/20 bg-white/[0.04] p-6">
+                    <div className="flex items-center gap-1 text-amber-200/80">
+                      <Stars rating={5} />
+                    </div>
+
+                    <h3 className="mt-4 text-xl font-semibold text-white">
+                      Testimonials coming soon
                     </h3>
-                    <p className="mt-3 text-base leading-7 text-white/85">
-                      Real player feedback will appear here as approved
-                      testimonials are added.
+
+                    <p className="mt-3 text-sm leading-7 text-white/70">
+                      Verified player reviews will be added here after approval.
+                      Until then, this page is ready to collect permission-based
+                      testimonials from real tables.
                     </p>
                   </div>
                 ) : (
@@ -264,24 +259,23 @@ export default function ReviewsPage() {
                     {publishedReviews.map((review) => (
                       <article
                         key={`${review.name}-${review.campaign}`}
-                        className="rounded-3xl border border-white/12 bg-black/20 p-5"
+                        className="rounded-[1.5rem] border border-white/12 bg-white/[0.04] p-5"
                       >
-                        <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-start justify-between gap-4">
                           <div>
                             <h3 className="text-lg font-semibold text-white">
                               {review.name}
                             </h3>
-                            <p className="text-sm text-white/60">
+                            <p className="mt-1 text-sm text-white/55">
                               {review.campaign}
                             </p>
                           </div>
-                          <p className="text-sm font-medium text-white/80">
-                            {review.rating}/5
-                          </p>
+
+                          <Stars rating={review.rating} />
                         </div>
 
-                        <p className="mt-4 text-base leading-7 text-white/85">
-                          {review.review}
+                        <p className="mt-4 text-sm leading-7 text-white/75">
+                          “{review.review}”
                         </p>
                       </article>
                     ))}
@@ -289,37 +283,50 @@ export default function ReviewsPage() {
                 )}
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85">
-                  Homepage: feature 2–3 review quotes
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85">
-                  Play page: place reviews near booking CTA
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85">
-                  Reviews page: full approved archive
-                </span>
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <p className="text-2xl font-bold text-white">Verified</p>
+                  <p className="mt-1 text-xs leading-5 text-white/55">
+                    Only real player submissions are published.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <p className="text-2xl font-bold text-white">Moderated</p>
+                  <p className="mt-1 text-xs leading-5 text-white/55">
+                    Reviews are checked before appearing publicly.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <p className="text-2xl font-bold text-white">Permissioned</p>
+                  <p className="mt-1 text-xs leading-5 text-white/55">
+                    Publication requires explicit player consent.
+                  </p>
+                </div>
               </div>
             </section>
           </div>
 
-          {/* Review Standards */}
-          <div className="mt-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
-              Review Standards
-            </p>
+          <section className="mt-10 rounded-[2rem] border border-white/10 bg-black/35 p-6 backdrop-blur-md sm:p-8">
+            <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.26em] text-amber-200/75">
+                  Review Standards
+                </p>
+                <h2 className="mt-3 text-2xl font-bold text-white">
+                  Built for trust, not vanity.
+                </h2>
+              </div>
 
-            <div className="mt-6 rounded-3xl border border-dashed border-white/15 bg-black/20 p-5">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/80">
-                Publishing Approach
-              </h3>
-              <p className="mt-4 text-base leading-7 text-white/85">
-                Only publish testimonials from real players, real tables, or
-                real submitted responses. Keep a moderation step so each public
-                review stays verified and permission-based.
+              <p className="text-sm leading-7 text-white/70">
+                Astral Forge publishes reviews from real games, real players,
+                and real submitted responses. Testimonials should reflect the
+                actual table experience and remain useful to future players
+                deciding whether a campaign is right for them.
               </p>
             </div>
-          </div>
+          </section>
         </div>
       </section>
     </main>
