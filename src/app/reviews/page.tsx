@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Reviews | Astral Forge",
@@ -65,12 +64,12 @@ export default function ReviewsPage() {
                 Leave a Review
               </a>
 
-              <Link
+              <a
                 href={playUrl}
                 className="rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
               >
                 Join a Game
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -240,9 +239,7 @@ export default function ReviewsPage() {
               <div className="mt-8">
                 {publishedReviews.length === 0 ? (
                   <div className="rounded-[1.5rem] border border-dashed border-white/20 bg-white/[0.04] p-6">
-                    <div className="flex items-center gap-1 text-amber-200/80">
-                      <Stars rating={5} />
-                    </div>
+                    <Stars rating={5} />
 
                     <h3 className="mt-4 text-xl font-semibold text-white">
                       Testimonials coming soon
