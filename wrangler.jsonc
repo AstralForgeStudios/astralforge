@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  "name": "astralforge-studio",
+
+  // OpenNext output worker
+  "main": ".open-next/worker.js",
+
+  // Always set this to today (or recent)
+  "compatibility_date": "2026-04-21",
+
+  // Required for Next.js runtime
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Static assets from OpenNext build
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  // Environment variables (non-sensitive only)
+  "vars": {
+    "NODE_ENV": "production"
+  },
+
+  // Routes (main domain for now)
+  "routes": [
+    {
+      "pattern": "astralforge.studio/*",
+      "zone_name": "astralforge.studio"
+    }
+  ],
+
+  // Observability (logs, traces)
+  "observability": {
+    "enabled": true
+  }
+}
